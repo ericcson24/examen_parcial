@@ -6,23 +6,14 @@ const api = axios.create({
     timeout: 10000,
 });
 
-function getErrorMessage(error: unknown): string {
-    if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-        return status
-            ? `Error en la API de cocktails (status ${status}).`
-            : "No hay respuesta de la API de cocktails.";
-    }
 
-    return "Error inesperado al consultar cocktails.";
-}
-
+//(basicamente declaro esta funcion y lo otro simplemente lo pongo como un endpoint y me quito problemas)
 async function requestDrinks(endpoint: string): Promise<CocktailDrink[]> {
     try {
         const response = await api.get<CocktailDbResponse>(endpoint);
         return response.data.drinks ?? [];
     } catch (error) {
-        throw new Error(getErrorMessage(error));
+        throw new Error("error en api");
     }
 }
 

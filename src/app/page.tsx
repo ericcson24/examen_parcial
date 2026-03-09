@@ -15,6 +15,8 @@ export default function Home() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+
+    //exactaemtne el mismo codigo que la practica 2
     let isMounted = true;
 
     async function fetchMargaritas() {

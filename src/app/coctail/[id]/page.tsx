@@ -18,7 +18,7 @@ export default async function CocktailDetailPage({ params }: PageProps) {
   }
 
   const ingredients = getCocktailIngredients(cocktail);
-
+  //el mismo retun que la practica 2 pero juntandolo con lo de pokemon
   return (
     <div className={styles.page}>
       <main className={styles.main}>
