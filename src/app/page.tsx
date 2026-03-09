@@ -74,12 +74,9 @@ export default function Home() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>TheCocktailDB</p>
+        
         <h1>Recetas de Margarita</h1>
-        <p>
-          Listado inicial obtenido desde <code>search.php?s=margarita</code>. Haz
-          click en cualquier cocktail para ver su detalle.
-        </p>
+        
 
         <button
           type="button"

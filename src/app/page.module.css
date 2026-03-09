@@ -1,110 +1,141 @@
 .page {
-  width: min(1140px, 92vw);
-  margin: 0 auto;
-  padding: 40px 0 64px;
+  --background: #fafafa;
+  --foreground: #fff;
+
+  --text-primary: #000;
+  --text-secondary: #666;
+
+  --button-primary-hover: #383838;
+  --button-secondary-hover: #f2f2f2;
+  --button-secondary-border: #ebebeb;
+
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-sans);
+  background-color: var(--background);
 }
 
-.header {
-  display: grid;
+.main {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 800px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: var(--foreground);
+  padding: 120px 60px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 24px;
+}
+
+.intro h1 {
+  max-width: 320px;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 48px;
+  letter-spacing: -2.4px;
+  text-wrap: balance;
+  color: var(--text-primary);
+}
+
+.intro p {
+  max-width: 440px;
+  font-size: 18px;
+  line-height: 32px;
+  text-wrap: balance;
+  color: var(--text-secondary);
+}
+
+.intro a {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ctas {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 440px;
   gap: 16px;
-  margin-bottom: 30px;
-  max-width: 760px;
-  animation: fadeSlide 600ms ease-out;
+  font-size: 14px;
 }
 
-.eyebrow {
-  display: inline-flex;
-  width: fit-content;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  background: #1d2f20;
-  color: #f8f2df;
-  padding: 6px 12px;
-}
-
-.header h1 {
-  font-family: var(--font-fraunces), serif;
-  font-size: clamp(2.2rem, 4.8vw, 4rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: #1d2f20;
-}
-
-.header p {
-  font-size: 1.04rem;
-  line-height: 1.6;
-  max-width: 64ch;
-}
-
-.header code {
-  font-size: 0.92em;
-  padding: 2px 6px;
-  border-radius: 6px;
-  background: rgba(29, 47, 32, 0.1);
-}
-
-.randomButton {
-  width: fit-content;
-  border: 0;
-  border-radius: 14px;
-  padding: 12px 18px;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #fffdf8;
-  background: linear-gradient(135deg, #334d36 0%, #5d3a1d 100%);
-  box-shadow: 0 12px 20px rgba(27, 37, 28, 0.24);
+.ctas a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 128px;
+  border: 1px solid transparent;
+  transition: 0.2s;
   cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+  width: fit-content;
+  font-weight: 500;
 }
 
-.randomButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 24px rgba(27, 37, 28, 0.3);
+a.primary {
+  background: var(--text-primary);
+  color: var(--background);
+  gap: 8px;
 }
 
-.randomButton:disabled {
-  opacity: 0.72;
-  cursor: wait;
+a.secondary {
+  border-color: var(--button-secondary-border);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
-}
-
-.loading,
-.error {
-  margin-top: 24px;
-  font-weight: 700;
-}
-
-.error {
-  color: #9d2f2f;
-}
-
-@keyframes fadeSlide {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  a.primary:hover {
+    background: var(--button-primary-hover);
+    border-color: transparent;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  a.secondary:hover {
+    background: var(--button-secondary-hover);
+    border-color: transparent;
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 600px) {
+  .main {
+    padding: 48px 24px;
+  }
+
+  .intro {
+    gap: 16px;
+  }
+
+  .intro h1 {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.92px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    filter: invert();
+  }
+
   .page {
-    padding: 24px 0 40px;
-  }
+    --background: #000;
+    --foreground: #000;
 
-  .header {
-    gap: 12px;
-    margin-bottom: 22px;
+    --text-primary: #ededed;
+    --text-secondary: #999;
+
+    --button-primary-hover: #ccc;
+    --button-secondary-hover: #1a1a1a;
+    --button-secondary-border: #1a1a1a;
   }
 }

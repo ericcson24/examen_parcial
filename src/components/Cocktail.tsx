@@ -16,7 +16,6 @@ export default function Cocktail({ cocktail }: CocktailProps) {
           alt={`Foto de ${cocktail.strDrink}`}
           fill
           className={styles.image}
-          sizes="(max-width: 760px) 50vw, (max-width: 1080px) 33vw, 240px"
         />
       </div>
 
