@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cocktail from "@/components/Cocktail";
-import { getMargaritaCocktails, getRandomCocktail } from "@/lib/api";
+import { getMargaritaCocktails, getRandomCocktail, searchCocktailsByName} from "@/lib/api";
 import { CocktailDrink } from "@/lib/types";
 import styles from "./page.module.css";
 
@@ -13,6 +13,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [randomLoading, setRandomLoading] = useState(false);
   const [error, setError] = useState("");
+  const [busqueda, setBusqueda] = useState("")
+  const [search, setSearch]= useState<boolean>(false)
 
   useEffect(() => {
 
@@ -23,7 +25,13 @@ export default function Home() {
       try {
         setLoading(true);
         setError("");
-        const data = await getMargaritaCocktails();
+      
+
+
+        const query = busqueda.trim();
+        const data = query
+          ? await searchCocktailsByName(query)
+          : await getMargaritaCocktails();
 
         if (isMounted) {
           setCocktails(data);
@@ -48,7 +56,7 @@ export default function Home() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [search]);
 
   async function handleRandomCocktail() {
     try {
@@ -77,7 +85,7 @@ export default function Home() {
     <main className={styles.page}>
       <header className={styles.header}>
         
-        <h1>Recetas de Margarita</h1>
+        <h1>Recetas:</h1>
         
 
         <button
@@ -88,6 +96,18 @@ export default function Home() {
         >
           {randomLoading ? "Buscando..." : "Dime algo bonito"}
         </button>
+
+        <div className="searchContainer">
+        <input 
+          type="text" 
+          placeholder="Buscar un cocktail..." 
+          value={busqueda} 
+          onChange={(e) => setBusqueda(e.target.value)} 
+          className="searchInput"
+        />
+
+        <button className="searchButton" onClick={() => setSearch(!search)}>Buscar</button>
+      </div>
       </header>
 
       {error && <p className={styles.error}>{error}</p>}
