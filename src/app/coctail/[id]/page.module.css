@@ -1,0 +1,133 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 44px;
+}
+
+.main {
+  width: min(980px, 92vw);
+  display: grid;
+  gap: 16px;
+}
+
+.back {
+  width: fit-content;
+  font-weight: 700;
+  color: #334d36;
+  border-bottom: 2px solid transparent;
+  transition: border-color 160ms ease;
+}
+
+.back:hover {
+  border-color: #334d36;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(93, 58, 29, 0.2);
+  background: linear-gradient(180deg, #fffdf8 0%, #f4ebd5 100%);
+  box-shadow: 0 18px 36px rgba(41, 33, 24, 0.14);
+}
+
+.imageWrap {
+  position: relative;
+  min-height: 360px;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.info {
+  padding: 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.id {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5d3a1d;
+}
+
+.title {
+  font-family: var(--font-fraunces), serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  color: #1d2f20;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metaGrid div {
+  border: 1px dashed rgba(29, 47, 32, 0.25);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.metaGrid span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6e553c;
+}
+
+.metaGrid strong {
+  font-size: 1rem;
+}
+
+.group {
+  display: grid;
+  gap: 8px;
+}
+
+.group h2 {
+  font-size: 1.06rem;
+  color: #1d2f20;
+}
+
+.group p {
+  line-height: 1.65;
+}
+
+.list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.list li {
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(51, 77, 54, 0.1);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .imageWrap {
+    min-height: 280px;
+  }
+
+  .metaGrid {
+    grid-template-columns: 1fr;
+  }
+}

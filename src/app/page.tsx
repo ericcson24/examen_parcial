@@ -1,66 +1,108 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Cocktail from "@/components/Cocktail";
+import { getMargaritaCocktails, getRandomCocktail } from "@/lib/api";
+import { CocktailDrink } from "@/lib/types";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const router = useRouter();
+  const [cocktails, setCocktails] = useState<CocktailDrink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [randomLoading, setRandomLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchMargaritas() {
+      try {
+        setLoading(true);
+        setError("");
+        const data = await getMargaritaCocktails();
+
+        if (isMounted) {
+          setCocktails(data);
+        }
+      } catch (requestError) {
+        if (isMounted) {
+          setError(
+            requestError instanceof Error
+              ? requestError.message
+              : "No se pudieron cargar los cocktails."
+          );
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchMargaritas();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  async function handleRandomCocktail() {
+    try {
+      setRandomLoading(true);
+      setError("");
+      const cocktail = await getRandomCocktail();
+
+      if (!cocktail) {
+        setError("No se encontro un cocktail aleatorio.");
+        return;
+      }
+
+      router.push(`/coctail/${cocktail.idDrink}`);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : "No se pudo cargar un cocktail aleatorio."
+      );
+    } finally {
+      setRandomLoading(false);
+    }
+  }
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className={styles.page}>
+      <header className={styles.header}>
+        <p className={styles.eyebrow}>TheCocktailDB</p>
+        <h1>Recetas de Margarita</h1>
+        <p>
+          Listado inicial obtenido desde <code>search.php?s=margarita</code>. Haz
+          click en cualquier cocktail para ver su detalle.
+        </p>
+
+        <button
+          type="button"
+          className={styles.randomButton}
+          onClick={handleRandomCocktail}
+          disabled={randomLoading}
+        >
+          {randomLoading ? "Buscando..." : "Dime algo bonito"}
+        </button>
+      </header>
+
+      {error && <p className={styles.error}>{error}</p>}
+
+      {loading ? (
+        <p className={styles.loading}>Cargando cocktails...</p>
+      ) : (
+        <section className={styles.grid}>
+          {cocktails.map((cocktail) => (
+            <Cocktail key={cocktail.idDrink} cocktail={cocktail} />
+          ))}
+        </section>
+      )}
+    </main>
   );
 }
+
