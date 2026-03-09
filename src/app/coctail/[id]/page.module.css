@@ -59,29 +59,27 @@
   color: #1d2f20;
 }
 
-.metaGrid {
+.Grid {
   display: grid;
   gap: 10px;
 }
 
-.metaGrid div {
-  border: 1px dashed rgba(29, 47, 32, 0.25);
+.Grid div {
+  border: 1px rgba(29, 47, 32, 0.25);
   border-radius: 12px;
   padding: 10px;
   background: rgba(255, 255, 255, 0.45);
 }
 
-.metaGrid span {
+.Grid span {
   display: block;
   margin-bottom: 6px;
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   color: #6e553c;
 }
 
-.metaGrid strong {
+.Grid strong {
   font-size: 1rem;
 }
 
@@ -102,7 +100,6 @@
 .list {
   list-style: none;
   display: grid;
-  
   gap: 8px;
 }
 

@@ -36,6 +36,7 @@ export async function getMargaritaCocktails(): Promise<CocktailDrink[]> {
 }
 
 export async function getCocktailById(id: string): Promise<CocktailDrink | null> {
+    //el trim porq hay uno que no me aparece sin ello ns porq
     const encodedId = encodeURIComponent(id.trim());
     const cocktails = await requestDrinks(`/lookup.php?i=${encodedId}`);
     return cocktails[0] ?? null;

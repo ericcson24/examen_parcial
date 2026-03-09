@@ -33,7 +33,6 @@ export default async function CocktailDetailPage({ params }: PageProps) {
               alt={`Foto de ${cocktail.strDrink}`}
               fill
               className={styles.image}
-              sizes="(max-width: 900px) 100vw, 460px"
               priority
             />
           </div>
@@ -42,7 +41,7 @@ export default async function CocktailDetailPage({ params }: PageProps) {
             <p className={styles.id}>ID {cocktail.idDrink}</p>
             <h1 className={styles.title}>{cocktail.strDrink}</h1>
 
-            <div className={styles.metaGrid}>
+            <div className={styles.Grid}>
               <div>
                 <span>Categoria</span>
                 <strong>{cocktail.strCategory ?? "No disponible"}</strong>
@@ -60,7 +59,7 @@ export default async function CocktailDetailPage({ params }: PageProps) {
             </div>
 
             <div className={styles.group}>
-              <h2>Instrucciones (EN)</h2>
+              <h2>Instrucciones</h2>
               <p>{cocktail.strInstructions ?? "No disponibles."}</p>
             </div>
 
