@@ -32,14 +32,13 @@
 }
 
 .randomButton {
-  border: 1px solid transparent;
+  border: 1px ;
   border-radius: 999px;
   background: var(--olive-700);
   color: #fff;
   font-weight: 700;
   padding: 0.62rem 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .randomButton:hover:enabled {
